@@ -96,9 +96,11 @@ Continuous logs confirm correct synchronization and no data loss.
 ### 4. CLI and IPC
 
 Screenshot 1 (Supervisor terminal):
+
 ![CLI Command](./screenshots/cli1.png)
 
 Screenshot 2 (CLI terminal):
+
 ![CLI Response](./screenshots/cli2.png)
 
 This screenshot shows a CLI command (stop) being issued and handled by the supervisor.
@@ -140,67 +142,67 @@ It confirms proper process cleanup and reaping by the supervisor
 
 ### 1. Isolation Mechanisms
 
-Containers use Linux namespaces:
-# PID namespace → process isolation
-# UTS namespace → hostname isolation
-# Mount namespace → filesystem isolation
+### Containers use Linux namespaces:
+  PID namespace → process isolation
+  UTS namespace → hostname isolation
+  Mount namespace → filesystem isolation
 
 chroot provides filesystem separation.
 
-All containers share:
-# Same kernel
-# Same hardware resources
+### All containers share:
+  Same kernel
+  Same hardware resources
 
 ### 2. Supervisor and Process Lifecycle
 
-A long-running supervisor:
+### A long-running supervisor:
 
-# Tracks all containers
-# Manages lifecycle (start, stop)
-# Handles signals
-# Reaps child processes (prevents zombies)
+  Tracks all containers
+  Manages lifecycle (start, stop)
+  Handles signals
+  Reaps child processes (prevents zombies)
 
 ### 3. IPC, Threads, and Synchronization
 
-Two IPC mechanisms:
-# FIFO (CLI ↔ Supervisor)
-# Pipes (container → logging system)
+### Two IPC mechanisms:
+  FIFO (CLI ↔ Supervisor)
+  Pipes (container → logging system)
 
-Bounded buffer:
-# Producer thread reads logs
-# Consumer thread writes logs
+### Bounded buffer:
+  Producer thread reads logs
+  Consumer thread writes logs
 
-Synchronization:
-# Mutex → protects shared buffer
-# Condition variables → avoid deadlock
+### Synchronization:
+  Mutex → protects shared buffer
+  Condition variables → avoid deadlock
 
 ### 4. Memory Management and Enforcement
 
-RSS (Resident Set Size):
-# Measures physical memory used
-# Does NOT include swapped memory
+### RSS (Resident Set Size):
+  Measures physical memory used
+  Does NOT include swapped memory
 
-Soft limit:
-# Warning only
+### Soft limit:
+  Warning only
 
-Hard limit:
-# Process termination
+### Hard limit:
+  Process termination
 
-Kernel enforcement:
-# More reliable than user-space
-# Cannot be bypassed
+### Kernel enforcement:
+  More reliable than user-space
+  Cannot be bypassed
 
 ### 5. Scheduling Behavior
 
-Observations:
-# CPU-bound processes get continuous CPU
-# I/O-bound processes yield frequently
+### Observations:
+  CPU-bound processes get continuous CPU
+  I/O-bound processes yield frequently
 
-Linux scheduler ensures:
+### Linux scheduler ensures:
 
-# Fairness
-# Responsiveness
-# Efficient CPU utilization
+  Fairness
+  Responsiveness
+  Efficient CPU utilization
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -244,14 +246,14 @@ Reason: Clearly demonstrates scheduler behavior
 
 ## 7. Scheduler Experiment Results
 
-   Workload                    	Behavior
-# CPU-bound	        -         High CPU usage
-# I/O-bound	        -        Frequent yielding
+ ### Workload                    ### Behavior
+  CPU-bound	        -          High CPU usage
+  I/O-bound	        -         Frequent yielding
 
-Observation:
+### Observation:
 
-# CPU-bound dominates CPU
-# I/O-bound improves responsiveness
+  CPU-bound dominates CPU
+  I/O-bound improves responsiveness
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -259,13 +261,13 @@ Observation:
 
 ## 8. Conclusion
 
-This project demonstrates:
+### This project demonstrates:
 
-# Container isolation using namespaces
-# Process lifecycle management
-# IPC and synchronization
-# Kernel-level resource enforcement
-# Linux scheduling behavior
+  Container isolation using namespaces
+  Process lifecycle management
+  IPC and synchronization
+  Kernel-level resource enforcement
+  Linux scheduling behavior
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 ## 9. Repository Structure
