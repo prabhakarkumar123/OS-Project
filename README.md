@@ -246,7 +246,7 @@ chroot provides filesystem separation.
 
 ## 7. Scheduler Experiment Results
 
-### Workload                ### Behavior
+### Workload                    Behavior
 * CPU-bound	        -         High CPU usage
 * I/O-bound	        -         Frequent yielding
 
@@ -271,10 +271,10 @@ chroot provides filesystem separation.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 ## 9. Repository Structure
-* engine.c              → Supervisor & runtime
-* monitor.c             → Kernel module
-* monitor_ioctl.h       → Shared definitions
-* cpu_hog.c             → CPU workload
-* io_pulse.c            → I/O workload
-* memory_hog.c          → Memory workload
-* Makefile              → Build system
+* engine.c              →   Supervisor & runtime
+* monitor.c             →   Kernel module
+* monitor_ioctl.h       →   Shared definitions
+* cpu_hog.c             →   CPU workload
+* io_pulse.c            →   I/O workload
+* memory_hog.c          →   Memory workload
+* Makefile              →   Build system
