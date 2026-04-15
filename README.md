@@ -143,15 +143,15 @@ It confirms proper process cleanup and reaping by the supervisor
 ### 1. Isolation Mechanisms
 
 ### Containers use Linux namespaces:
-PID namespace → process isolation
-UTS namespace → hostname isolation
-Mount namespace → filesystem isolation
+*PID namespace → process isolation
+*UTS namespace → hostname isolation
+*Mount namespace → filesystem isolation
 
 chroot provides filesystem separation.
 
 ### All containers share:
-Same kernel
-Same hardware resources
+* Same kernel
+* Same hardware resources
 
 ### 2. Supervisor and Process Lifecycle
 
