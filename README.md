@@ -5,7 +5,7 @@
 Name: PRABHAKAR KUMAR  
 SRN: PES2UG24CS355
 
-Name: NIKSHEP 
+Name: NIKSHEP    
 SRN: PES2UG24CS320
 
 ----------------------------------------------------------------------------------------------------------------------------------
@@ -143,66 +143,66 @@ It confirms proper process cleanup and reaping by the supervisor
 ### 1. Isolation Mechanisms
 
 ### Containers use Linux namespaces:
-  PID namespace → process isolation
-  UTS namespace → hostname isolation
-  Mount namespace → filesystem isolation
+PID namespace → process isolation
+UTS namespace → hostname isolation
+Mount namespace → filesystem isolation
 
 chroot provides filesystem separation.
 
 ### All containers share:
-  Same kernel
-  Same hardware resources
+Same kernel
+Same hardware resources
 
 ### 2. Supervisor and Process Lifecycle
 
 ### A long-running supervisor:
 
-  Tracks all containers
-  Manages lifecycle (start, stop)
-  Handles signals
-  Reaps child processes (prevents zombies)
+Tracks all containers
+Manages lifecycle (start, stop)
+Handles signals
+Reaps child processes (prevents zombies)
 
 ### 3. IPC, Threads, and Synchronization
 
 ### Two IPC mechanisms:
-  FIFO (CLI ↔ Supervisor)
-  Pipes (container → logging system)
+FIFO (CLI ↔ Supervisor)
+Pipes (container → logging system)
 
 ### Bounded buffer:
-  Producer thread reads logs
-  Consumer thread writes logs
+Producer thread reads logs
+Consumer thread writes logs
 
 ### Synchronization:
-  Mutex → protects shared buffer
-  Condition variables → avoid deadlock
+Mutex → protects shared buffer
+Condition variables → avoid deadlock
 
 ### 4. Memory Management and Enforcement
 
 ### RSS (Resident Set Size):
-  Measures physical memory used
-  Does NOT include swapped memory
+Measures physical memory used
+Does NOT include swapped memory
 
 ### Soft limit:
-  Warning only
+Warning only
 
 ### Hard limit:
-  Process termination
+Process termination
 
 ### Kernel enforcement:
-  More reliable than user-space
-  Cannot be bypassed
+More reliable than user-space
+Cannot be bypassed
 
 ### 5. Scheduling Behavior
 
 ### Observations:
-  CPU-bound processes get continuous CPU
-  I/O-bound processes yield frequently
+CPU-bound processes get continuous CPU
+I/O-bound processes yield frequently
 
 ### Linux scheduler ensures:
 
-  Fairness
-  Responsiveness
-  Efficient CPU utilization
+Fairness
+Responsiveness
+Efficient CPU utilization
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -246,14 +246,14 @@ Reason: Clearly demonstrates scheduler behavior
 
 ## 7. Scheduler Experiment Results
 
- ### Workload                    ### Behavior
-  CPU-bound	        -          High CPU usage
-  I/O-bound	        -         Frequent yielding
+### Workload                ### Behavior
+CPU-bound	        -         High CPU usage
+I/O-bound	        -         Frequent yielding
 
 ### Observation:
 
-  CPU-bound dominates CPU
-  I/O-bound improves responsiveness
+CPU-bound dominates CPU
+I/O-bound improves responsiveness
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -263,11 +263,11 @@ Reason: Clearly demonstrates scheduler behavior
 
 ### This project demonstrates:
 
-  Container isolation using namespaces
-  Process lifecycle management
-  IPC and synchronization
-  Kernel-level resource enforcement
-  Linux scheduling behavior
+Container isolation using namespaces
+Process lifecycle management
+IPC and synchronization
+Kernel-level resource enforcement
+Linux scheduling behavior
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 ## 9. Repository Structure
