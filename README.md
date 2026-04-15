@@ -143,9 +143,9 @@ It confirms proper process cleanup and reaping by the supervisor
 ### 1. Isolation Mechanisms
 
 ### Containers use Linux namespaces:
-*PID namespace → process isolation
-*UTS namespace → hostname isolation
-*Mount namespace → filesystem isolation
+* PID namespace → process isolation
+* UTS namespace → hostname isolation
+* Mount namespace → filesystem isolation
 
 chroot provides filesystem separation.
 
@@ -157,52 +157,52 @@ chroot provides filesystem separation.
 
 ### A long-running supervisor:
 
-Tracks all containers
-Manages lifecycle (start, stop)
-Handles signals
-Reaps child processes (prevents zombies)
+* Tracks all containers
+* Manages lifecycle (start, stop)
+* Handles signals
+* Reaps child processes (prevents zombies)
 
 ### 3. IPC, Threads, and Synchronization
 
 ### Two IPC mechanisms:
-FIFO (CLI ↔ Supervisor)
-Pipes (container → logging system)
+* FIFO (CLI ↔ Supervisor)
+* Pipes (container → logging system)
 
 ### Bounded buffer:
-Producer thread reads logs
-Consumer thread writes logs
+* Producer thread reads logs
+* Consumer thread writes logs
 
 ### Synchronization:
-Mutex → protects shared buffer
-Condition variables → avoid deadlock
+* Mutex → protects shared buffer
+* Condition variables → avoid deadlock
 
 ### 4. Memory Management and Enforcement
 
 ### RSS (Resident Set Size):
-Measures physical memory used
-Does NOT include swapped memory
+* Measures physical memory used
+* Does NOT include swapped memory
 
 ### Soft limit:
-Warning only
+* Warning only
 
 ### Hard limit:
-Process termination
+* Process termination
 
 ### Kernel enforcement:
-More reliable than user-space
-Cannot be bypassed
+* More reliable than user-space
+* Cannot be bypassed
 
 ### 5. Scheduling Behavior
 
 ### Observations:
-CPU-bound processes get continuous CPU
-I/O-bound processes yield frequently
+* CPU-bound processes get continuous CPU
+* I/O-bound processes yield frequently
 
 ### Linux scheduler ensures:
 
-Fairness
-Responsiveness
-Efficient CPU utilization
+* Fairness
+* Responsiveness
+* Efficient CPU utilization
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -212,33 +212,33 @@ Efficient CPU utilization
 
 ### Namespace Isolation
 
-Choice: Linux namespaces
-Tradeoff: Complexity vs strong isolation
-Reason: Lightweight compared to VMs
+* Choice: Linux namespaces
+* Tradeoff: Complexity vs strong isolation
+* Reason: Lightweight compared to VMs
 
 ### Supervisor Architecture
 
-Choice: Single long-running process
-Tradeoff: Central control vs single point of failure
-Reason: Easier lifecycle management
+* Choice: Single long-running process
+* Tradeoff: Central control vs single point of failure
+* Reason: Easier lifecycle management
 
 ### IPC & Logging
 
-Choice: Pipes + bounded buffer
-Tradeoff: Complexity vs data reliability
-Reason: Prevents data loss and blocking
+* Choice: Pipes + bounded buffer
+* Tradeoff: Complexity vs data reliability
+* Reason: Prevents data loss and blocking
 
 ### Kernel Monitor
 
-Choice: Kernel module
-Tradeoff: Complexity vs accuracy
-Reason: Direct access to memory metrics
+* Choice: Kernel module
+* Tradeoff: Complexity vs accuracy
+* Reason: Direct access to memory metrics
 
 ### Scheduling Experiments
 
-Choice: CPU vs I/O workloads
-Tradeoff: Simplicity vs completeness
-Reason: Clearly demonstrates scheduler behavior
+* Choice: CPU vs I/O workloads
+* Tradeoff: Simplicity vs completeness
+* Reason: Clearly demonstrates scheduler behavior
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
@@ -247,13 +247,13 @@ Reason: Clearly demonstrates scheduler behavior
 ## 7. Scheduler Experiment Results
 
 ### Workload                ### Behavior
-CPU-bound	        -         High CPU usage
-I/O-bound	        -         Frequent yielding
+* CPU-bound	        -         High CPU usage
+* I/O-bound	        -         Frequent yielding
 
 ### Observation:
 
-CPU-bound dominates CPU
-I/O-bound improves responsiveness
+* CPU-bound dominates CPU
+* I/O-bound improves responsiveness
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -263,18 +263,18 @@ I/O-bound improves responsiveness
 
 ### This project demonstrates:
 
-Container isolation using namespaces
-Process lifecycle management
-IPC and synchronization
-Kernel-level resource enforcement
-Linux scheduling behavior
+* Container isolation using namespaces
+* Process lifecycle management
+* IPC and synchronization
+* Kernel-level resource enforcement
+* Linux scheduling behavior
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 ## 9. Repository Structure
-engine.c              → Supervisor & runtime
-monitor.c             → Kernel module
-monitor_ioctl.h       → Shared definitions
-cpu_hog.c             → CPU workload
-io_pulse.c            → I/O workload
-memory_hog.c          → Memory workload
-Makefile              → Build system
+* engine.c              → Supervisor & runtime
+* monitor.c             → Kernel module
+* monitor_ioctl.h       → Shared definitions
+* cpu_hog.c             → CPU workload
+* io_pulse.c            → I/O workload
+* memory_hog.c          → Memory workload
+* Makefile              → Build system
