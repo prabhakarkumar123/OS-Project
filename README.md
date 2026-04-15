@@ -72,25 +72,24 @@ sudo rmmod monitor
 ---
 ## 4. Demo with Screenshots
 ---
-
 ### 1. Multi-container supervision
 
 ![Multi Container](./screenshots/multi.png)
+
 This screenshot shows two containers running concurrently under the same supervisor process.
 Each container has its own isolated environment (hostname, processes), demonstrating multi-container management.
-
----
 
 ### 2. Metadata tracking
 
 ![PS Output](./screenshots/ps.png)
+
 This screenshot shows the supervisor tracking container metadata using the engine ps command.
 It includes container ID, host PID, and current state, confirming proper metadata management.
 
----
 ### 3. Bounded-buffer logging
 
 ![Logging](./screenshots/logging.png)
+
 This screenshot demonstrates the logging pipeline where container output is captured through a producer-consumer bounded buffer.
 Continuous logs confirm correct synchronization and no data loss.
 
@@ -108,12 +107,14 @@ It demonstrates IPC between the CLI and supervisor process for container control
 ### 5. Soft-limit warning
 
 ![Soft Limit](./screenshots/soft.png)
+
 This screenshot shows the kernel module detecting that a container exceeded its soft memory limit.
 A warning is logged without terminating the process, demonstrating soft-limit behavior.
 
 ### 6. Hard-limit enforcement
 
 ![Hard Limit](./screenshots/hard.png)
+
 This screenshot shows the kernel enforcing the hard memory limit by killing the container process when it exceeds the limit.
 This confirms correct enforcement logic.
 
@@ -122,18 +123,18 @@ This confirms correct enforcement logic.
 ![Scheduling 1](./screenshots/sched1.png)
 ![Scheduling 2](./screenshots/sched2.png)
 
-This screenshot compares CPU-bound and I/O-bound workloads. The CPU-bound process consumes continuous CPU time, while the I/O-bound process yields frequently,
-demonstrating Linux scheduling behavior.
+This screenshot compares CPU-bound and I/O-bound workloads. The CPU-bound process consumes continuous CPU time,
+while the I/O-bound process yields frequently,demonstrating Linux scheduling behavior.
 
 ### 8. Clean teardown
 
 ![Cleanup](./screenshots/cleanup.png)
+
 This screenshot shows that no zombie processes remain after container termination.
 It confirms proper process cleanup and reaping by the supervisor
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 ## 5. Engineering Analysis
 
