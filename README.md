@@ -71,66 +71,60 @@ sudo rmmod monitor
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-4. Demo with Screenshots
+## 4. Demo with Screenshots
 
-1. Multi-container supervision
+### 1. Multi-container supervision
 
-<img width="793" height="401" alt="image" src="https://github.com/user-attachments/assets/0aa4f7a4-5d7f-4f58-bc5e-9d8ba6024443" />
-
+![Multi Container](screenshots/multi.png)
 This screenshot shows two containers running concurrently under the same supervisor process.
 Each container has its own isolated environment (hostname, processes), demonstrating multi-container management.
 
-2. Metadata tracking
+### 2. Metadata tracking
 
-<img width="940" height="476" alt="image" src="https://github.com/user-attachments/assets/43b6fcc2-0ce7-495b-8085-a3ebba4ccec7" />
-
+![PS Output](screenshots/ps.png)
 This screenshot shows the supervisor tracking container metadata using the engine ps command.
 It includes container ID, host PID, and current state, confirming proper metadata management.
 
-3. Bounded-buffer logging
+### 3. Bounded-buffer logging
 
-<img width="940" height="476" alt="image" src="https://github.com/user-attachments/assets/417bcf37-7063-40d4-a934-420412074f23" />
-
+![Logging](screenshots/logging.png)
 This screenshot demonstrates the logging pipeline where container output is captured through a producer-consumer bounded buffer.
 Continuous logs confirm correct synchronization and no data loss.
 
-4. CLI and IPC
+### 4. CLI and IPC
 
 Screenshot 1 (Supervisor terminal):
-<img width="940" height="476" alt="image" src="https://github.com/user-attachments/assets/1ddb4d64-7d75-4e46-bcea-d30df7e7c18c" />
+![CLI Command](screenshots/cli1.png)
 
 Screenshot 2 (CLI terminal):
-<img width="940" height="476" alt="image" src="https://github.com/user-attachments/assets/3997aa65-f464-43a3-b881-6828deb980f8" />
+![CLI Response](screenshots/cli2.png)
 
 This screenshot shows a CLI command (stop) being issued and handled by the supervisor.
 It demonstrates IPC between the CLI and supervisor process for container control.
 
-5. Soft-limit warning
+### 5. Soft-limit warning
 
-<img width="940" height="476" alt="image" src="https://github.com/user-attachments/assets/c82f6276-f0e6-4dae-a1df-9a39071f3172" />
-
+![Soft Limit](screenshots/soft.png)
 This screenshot shows the kernel module detecting that a container exceeded its soft memory limit.
 A warning is logged without terminating the process, demonstrating soft-limit behavior.
 
-6. Hard-limit enforcement
+### 6. Hard-limit enforcement
 
-<img width="940" height="476" alt="image" src="https://github.com/user-attachments/assets/efd88478-88eb-466c-a52e-8162b24cf342" />
-
+![Hard Limit](screenshots/hard.png)
 This screenshot shows the kernel enforcing the hard memory limit by killing the container process when it exceeds the limit.
 This confirms correct enforcement logic.
 
-7. Scheduling experiment
+### 7. Scheduling experiment
 
-<img width="940" height="476" alt="image" src="https://github.com/user-attachments/assets/2b530285-dec7-4dbd-b9d0-3bb8fa049777" />
-<img width="940" height="476" alt="image" src="https://github.com/user-attachments/assets/18f860fc-794a-421b-b587-4dd9bec4ec5e" />
+![Scheduling 1](screenshots/sched1.png)
+![Scheduling 2](screenshots/sched2.png)
 
 This screenshot compares CPU-bound and I/O-bound workloads. The CPU-bound process consumes continuous CPU time, while the I/O-bound process yields frequently,
 demonstrating Linux scheduling behavior.
 
-8. Clean teardown
+### 8. Clean teardown
 
-<img width="940" height="476" alt="image" src="https://github.com/user-attachments/assets/c70e5cc0-4a0a-4f3b-8e11-362b19e54c43" />
-
+![Cleanup](screenshots/cleanup.png)
 This screenshot shows that no zombie processes remain after container termination.
 It confirms proper process cleanup and reaping by the supervisor
 
@@ -138,9 +132,9 @@ It confirms proper process cleanup and reaping by the supervisor
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-5. Engineering Analysis
+## 5. Engineering Analysis
 
-1. Isolation Mechanisms
+### 1. Isolation Mechanisms
 
 Containers use Linux namespaces:
 # PID namespace → process isolation
@@ -153,7 +147,7 @@ All containers share:
 # Same kernel
 # Same hardware resources
 
-2. Supervisor and Process Lifecycle
+### 2. Supervisor and Process Lifecycle
 
 A long-running supervisor:
 
@@ -162,7 +156,7 @@ A long-running supervisor:
 # Handles signals
 # Reaps child processes (prevents zombies)
 
-3. IPC, Threads, and Synchronization
+### 3. IPC, Threads, and Synchronization
 
 Two IPC mechanisms:
 # FIFO (CLI ↔ Supervisor)
@@ -176,7 +170,7 @@ Synchronization:
 # Mutex → protects shared buffer
 # Condition variables → avoid deadlock
 
-4. Memory Management and Enforcement
+### 4. Memory Management and Enforcement
 
 RSS (Resident Set Size):
 # Measures physical memory used
@@ -192,7 +186,7 @@ Kernel enforcement:
 # More reliable than user-space
 # Cannot be bypassed
 
-5. Scheduling Behavior
+### 5. Scheduling Behavior
 
 Observations:
 # CPU-bound processes get continuous CPU
@@ -208,33 +202,33 @@ Linux scheduler ensures:
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-6. Design Decisions and Tradeoffs
+## 6. Design Decisions and Tradeoffs
 
-Namespace Isolation
+### Namespace Isolation
 
 Choice: Linux namespaces
 Tradeoff: Complexity vs strong isolation
 Reason: Lightweight compared to VMs
 
-Supervisor Architecture
+### Supervisor Architecture
 
 Choice: Single long-running process
 Tradeoff: Central control vs single point of failure
 Reason: Easier lifecycle management
 
-IPC & Logging
+### IPC & Logging
 
 Choice: Pipes + bounded buffer
 Tradeoff: Complexity vs data reliability
 Reason: Prevents data loss and blocking
 
-Kernel Monitor
+### Kernel Monitor
 
 Choice: Kernel module
 Tradeoff: Complexity vs accuracy
 Reason: Direct access to memory metrics
 
-Scheduling Experiments
+### Scheduling Experiments
 
 Choice: CPU vs I/O workloads
 Tradeoff: Simplicity vs completeness
@@ -244,7 +238,7 @@ Reason: Clearly demonstrates scheduler behavior
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 
-7. Scheduler Experiment Results
+## 7. Scheduler Experiment Results
 
    Workload                    	Behavior
 # CPU-bound	        -         High CPU usage
@@ -259,7 +253,7 @@ Observation:
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-8. Conclusion
+## 8. Conclusion
 
 This project demonstrates:
 
@@ -270,7 +264,7 @@ This project demonstrates:
 # Linux scheduling behavior
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
-9. Repository Structure
+## 9. Repository Structure
 engine.c              → Supervisor & runtime
 monitor.c             → Kernel module
 monitor_ioctl.h       → Shared definitions
