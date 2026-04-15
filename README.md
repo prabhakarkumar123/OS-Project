@@ -68,10 +68,9 @@ sudo dmesg | tail
 # Cleanup
 sudo rmmod monitor
 
+```
 ---
-
 ## 4. Demo with Screenshots
-
 ---
 
 ### 1. Multi-container supervision
@@ -87,6 +86,7 @@ Each container has its own isolated environment (hostname, processes), demonstra
 ![PS Output](./screenshots/ps.png)
 This screenshot shows the supervisor tracking container metadata using the engine ps command.
 It includes container ID, host PID, and current state, confirming proper metadata management.
+
 ---
 ### 3. Bounded-buffer logging
 
