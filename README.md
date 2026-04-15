@@ -73,18 +73,20 @@ sudo rmmod monitor
 
 ## 4. Demo with Screenshots
 
+---
+
 ### 1. Multi-container supervision
 
 ![Multi Container](screenshots/multi.png)
 This screenshot shows two containers running concurrently under the same supervisor process.
 Each container has its own isolated environment (hostname, processes), demonstrating multi-container management.
-
+---
 ### 2. Metadata tracking
 
 ![PS Output](screenshots/ps.png)
 This screenshot shows the supervisor tracking container metadata using the engine ps command.
 It includes container ID, host PID, and current state, confirming proper metadata management.
-
+---
 ### 3. Bounded-buffer logging
 
 ![Logging](screenshots/logging.png)
